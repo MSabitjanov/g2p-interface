@@ -7,7 +7,7 @@ from typing import Union, Tuple
 
 
 class TextToPhonemeService:
-    service_url = "http://127.0.0.1:5000/g2p/epitran"
+    service_url = st.secrets["service_url"]
 
     @staticmethod
     def get_available_languages() -> Tuple[bool, Union[str, dict]]:
