@@ -33,7 +33,9 @@ class TextToPhonemeService:
                 headers={"Content-Type": "application/json"},
                 data=json.dumps(data),
             )
-            return True, response
+            if response.status_code == 200:
+                return True, response
+            return False, response.json().get("message")
         except:
             return False, "Tashqi xizmat ishlashida xatolik yuz berdi"
 
@@ -114,6 +116,7 @@ class DrawHomePage:
                 status, phoneme_form = self._generate_phonemes(txt)
                 if status is False:
                     msg.toast(phoneme_form, icon="❌")
+                    return
                 msg.toast("Bajarildi!", icon="✅")
                 st.markdown("## Fonetik ko`rinishi:", unsafe_allow_html=True)
                 st.text_area(
